@@ -1,2 +1,2 @@
-# gigan-media
+# [TODO]: Title
 Code for Project 2 - Social Network
