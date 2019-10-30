@@ -34,3 +34,7 @@
 		<mapping class="com.revature.model.User"/>
 	</session-factory>
 </hibernate-configuration>
+
+
+
+
