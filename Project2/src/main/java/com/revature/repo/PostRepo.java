@@ -33,7 +33,7 @@ public class PostRepo {
 	}
 	
 	public Post selectById(int id) {
-		Post p = sesFact.getCurrentSession().load(Post.class, id);
+		Post p = sesFact.getCurrentSession().get(Post.class, id);
 		return p;
 	}
 	

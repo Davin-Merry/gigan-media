@@ -33,7 +33,7 @@ public class UserRepo {
 			}
 			
 			public User selectByEmail(String email) {
-				User u = sesFact.getCurrentSession().load(User.class, email);
+				User u = sesFact.getCurrentSession().get(User.class, email);
 				return u;
 			}
 			

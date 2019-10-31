@@ -33,7 +33,7 @@ public class ProfileRepo  {
 		}
 		
 		public Profile selectByEmail(String email) {
-			Profile p = sesFact.getCurrentSession().load(Profile.class, email);
+			Profile p = sesFact.getCurrentSession().get(Profile.class, email);
 			return p;
 		}
 		
