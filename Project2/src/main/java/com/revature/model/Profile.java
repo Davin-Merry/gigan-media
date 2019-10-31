@@ -1,12 +1,25 @@
 package com.revature.model;
 
+import java.util.Objects;
+
 public class Profile {
 	private String profileImage;
 	private String bio;
 	private String galaxy;
 	private String solarSystem;
 	private String planet;
+	private String email;
 	
+	
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getProfileImage() {
 		return profileImage;
 	}
@@ -46,19 +59,18 @@ public class Profile {
 	public void setPlanet(String planet) {
 		this.planet = planet;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((bio == null) ? 0 : bio.hashCode());
-		result = prime * result + ((galaxy == null) ? 0 : galaxy.hashCode());
-		result = prime * result + ((planet == null) ? 0 : planet.hashCode());
-		result = prime * result + ((profileImage == null) ? 0 : profileImage.hashCode());
-		result = prime * result + ((solarSystem == null) ? 0 : solarSystem.hashCode());
-		return result;
+		return Objects.hash(bio, email, galaxy, planet, profileImage, solarSystem);
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -68,51 +80,33 @@ public class Profile {
 		if (getClass() != obj.getClass())
 			return false;
 		Profile other = (Profile) obj;
-		if (bio == null) {
-			if (other.bio != null)
-				return false;
-		} else if (!bio.equals(other.bio))
-			return false;
-		if (galaxy == null) {
-			if (other.galaxy != null)
-				return false;
-		} else if (!galaxy.equals(other.galaxy))
-			return false;
-		if (planet == null) {
-			if (other.planet != null)
-				return false;
-		} else if (!planet.equals(other.planet))
-			return false;
-		if (profileImage == null) {
-			if (other.profileImage != null)
-				return false;
-		} else if (!profileImage.equals(other.profileImage))
-			return false;
-		if (solarSystem == null) {
-			if (other.solarSystem != null)
-				return false;
-		} else if (!solarSystem.equals(other.solarSystem))
-			return false;
-		return true;
+		return Objects.equals(bio, other.bio) && Objects.equals(email, other.email)
+				&& Objects.equals(galaxy, other.galaxy) && Objects.equals(planet, other.planet)
+				&& Objects.equals(profileImage, other.profileImage) && Objects.equals(solarSystem, other.solarSystem);
 	}
-	
-	public Profile(User owner, String profileImage, String bio, String galaxy, String solarSystem, String planet) {
+
+	public Profile(String profileImage, String bio, String galaxy, String solarSystem, String planet, String email) {
 		super();
 		this.profileImage = profileImage;
 		this.bio = bio;
 		this.galaxy = galaxy;
 		this.solarSystem = solarSystem;
 		this.planet = planet;
+		this.email = email;
 	}
-	
+
 	public Profile() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Profile [profileImage=" + profileImage + ", bio=" + bio + ", galaxy=" + galaxy + ", solarSystem="
-				+ solarSystem + ", planet=" + planet + "]";
-	} 
+				+ solarSystem + ", planet=" + planet + ", email=" + email + "]";
+	}
+	
+
 }
