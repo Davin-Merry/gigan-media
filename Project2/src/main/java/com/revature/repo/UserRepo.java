@@ -1,4 +1,4 @@
-package com.revature.dao;
+package com.revature.repo;
 
 import java.util.List;
 
@@ -26,6 +26,10 @@ public class UserRepo {
 			
 			public void insert(User u) {
 				sesFact.getCurrentSession().save(u);
+			}
+			
+			public void update(User u) {
+				sesFact.getCurrentSession().update(u);
 			}
 			
 			public User selectByEmail(String email) {

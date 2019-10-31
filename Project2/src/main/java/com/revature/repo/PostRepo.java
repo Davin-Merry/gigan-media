@@ -1,4 +1,4 @@
-package com.revature.dao;
+package com.revature.repo;
 
 import java.util.List;
 
@@ -26,6 +26,10 @@ public class PostRepo {
 	
 	public void insert(Post p) {
 		sesFact.getCurrentSession().save(p);
+	}
+	
+	public void update(Post p) {
+		sesFact.getCurrentSession().update(p);
 	}
 	
 	public Post selectById(int id) {
