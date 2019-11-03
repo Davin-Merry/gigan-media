@@ -1,76 +1,149 @@
 package com.revature.model;
 
-import com.revature.util.SecurityUtil;
+import java.util.List;
+import java.util.Objects;
 
-// NEED JPA HIBERNATE ANNOTATIONS, @ENTITY
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.revature.model.Post; 
+
+@Entity
+@Table(name="user")
 public class User {
-	
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
-	private Profile profile;
-	private String salt;
-	
-	public void setSalt() {
-		
-		SecurityUtil su = new SecurityUtil();
-		this.salt = su.generateSalt();
-		
-	}
-	
-	public String getFirstName() {
-		return firstName;
-	}
-	
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	
-	public String getLastName() {
-		return lastName;
-	}
-	
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public void setEmail(String email) {
+    @Id
+    @JoinColumn(name = "email")
+    private String email;
+    
+    @Column(name = "firstName")
+    private String firstName;
+    
+    @Column(name = "lastName")
+    private String lastName;
+    
+    @Column(name = "password")
+    private String password;
+    
+    @Column(name = "profilePic")
+    private String profileImage;
+    
+    @Column(name = "bio")
+    private String bio;
+    
+    @Column(name = "galaxy")
+    private String galaxy;
+    
+    @Column(name = "solarSystem")
+    private String solarSystem;
+    
+    @Column(name = "planet")
+    private String planet;
+    
+    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private List<Post> post;
+    
+    //Getters and Setters
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
+    public String getLastName() {
+        return lastName;
+    }
+    
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }    
+    
+    public String getProfileImage() {
+        return profileImage;
+    }
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+    public String getBio() {
+        return bio;
+    }
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+    public String getGalaxy() {
+        return galaxy;
+    }
+    public void setGalaxy(String galaxy) {
+        this.galaxy = galaxy;
+    }
+    public String getSolarSystem() {
+        return solarSystem;
+    }
+    public void setSolarSystem(String solarSystem) {
+        this.solarSystem = solarSystem;
+    }
+    public String getPlanet() {
+        return planet;
+    }
+    public void setPlanet(String planet) {
+        this.planet = planet;
+    }
+    public List<Post> getPost() {
+        return post;
+    }
+    public void setPost(List<Post> post) {
+        this.post = post;
+    }
+
+	public User(String email, String firstName, String lastName, String password, String profileImage, String bio,
+			String galaxy, String solarSystem, String planet, List<Post> post) {
+		super();
 		this.email = email;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.password = password;
+		this.profileImage = profileImage;
+		this.bio = bio;
+		this.galaxy = galaxy;
+		this.solarSystem = solarSystem;
+		this.planet = planet;
+		this.post = post;
 	}
-	
-	public Profile getProfile() {
-		return this.profile;
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
-	
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
-		return result;
+		return Objects.hash(bio, email, firstName, galaxy, lastName, post, password, planet, profileImage,
+				solarSystem);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -80,50 +153,18 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (profile == null) {
-			if (other.profile != null)
-				return false;
-		} else if (!profile.equals(other.profile))
-			return false;
-		return true;
+		return Objects.equals(bio, other.bio) && Objects.equals(email, other.email)
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(galaxy, other.galaxy)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(post, other.post)
+				&& Objects.equals(password, other.password) && Objects.equals(planet, other.planet)
+				&& Objects.equals(profileImage, other.profileImage) && Objects.equals(solarSystem, other.solarSystem);
 	}
-	
-	public User(String firstName, String lastName, String email, String password) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-	}
-	
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
+
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password
-				+ ", profile=" + profile + "]";
+		return "User [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
+				+ ", profileImage=" + profileImage + ", bio=" + bio + ", galaxy=" + galaxy + ", solarSystem="
+				+ solarSystem + ", planet=" + planet + ", liked=" + post + "]";
 	}
+      
 }
