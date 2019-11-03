@@ -35,4 +35,9 @@ public class PostService {
 	public void setRp(PostRepo rp) {
 		this.rp = rp;
 	}
+
+	public Post getByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -1,7 +1,7 @@
 package com.revature.model;
 
 import java.util.Objects;
-
+//HIBERNATE ANNOTATIONS
 public class Profile {
 	private String profileImage;
 	private String bio;

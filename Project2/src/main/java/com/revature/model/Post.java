@@ -11,7 +11,17 @@ public class Post {
 	private List<String> images; 
 	private Timestamp time; 
 	private Set<User> likes;
+	private String email;
 	
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Post() {
 		super();
 	}
@@ -79,6 +89,7 @@ public class Post {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((images == null) ? 0 : images.hashCode());
 		result = prime * result + ((likes == null) ? 0 : likes.hashCode());
 		result = prime * result + postId;
@@ -100,6 +111,11 @@ public class Post {
 			if (other.creator != null)
 				return false;
 		} else if (!creator.equals(other.creator))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
 			return false;
 		if (images == null) {
 			if (other.images != null)
@@ -129,6 +145,6 @@ public class Post {
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", creator=" + creator + ", text=" + text + ", images=" + images + ", time="
-				+ time + ", likes=" + likes + "]";
+				+ time + ", likes=" + likes + ", email=" + email + "]";
 	}
 }

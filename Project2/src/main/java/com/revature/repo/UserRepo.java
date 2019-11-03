@@ -42,10 +42,17 @@ public class UserRepo {
 			return list; 
 			}
 			
+			public void delete(String u) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 			@Autowired
 			public UserRepo(SessionFactory sesFact) {
 				this.sesFact = sesFact;
 			}
+
+			
 	
 	
 	

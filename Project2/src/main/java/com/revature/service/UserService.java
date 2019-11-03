@@ -31,6 +31,10 @@ private UserRepo ur;
 		ur.update(u);
 	}
 	
+	public void delete(String u) {
+		ur.delete(u);
+	}
+	
 	public void insert(User u) {
 		ur.update(u);
 		

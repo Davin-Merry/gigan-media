@@ -1,5 +1,8 @@
 package com.revature.model;
 
+import com.revature.util.SecurityUtil;
+
+// NEED JPA HIBERNATE ANNOTATIONS, @ENTITY
 public class User {
 	
 	private String firstName;
@@ -7,6 +10,14 @@ public class User {
 	private String email;
 	private String password;
 	private Profile profile;
+	private String salt;
+	
+	public void setSalt() {
+		
+		SecurityUtil su = new SecurityUtil();
+		this.salt = su.generateSalt();
+		
+	}
 	
 	public String getFirstName() {
 		return firstName;
