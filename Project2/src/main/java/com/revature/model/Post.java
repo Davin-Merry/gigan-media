@@ -1,12 +1,14 @@
 package com.revature.model;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,12 +16,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.revature.model.User;
+
 @Entity
-@Table(name="User_Posts")
+@Table(name="user_posts")
 public class Post {
     
     @Id
@@ -34,15 +38,15 @@ public class Post {
     @Column(name = "text")
     private String text;
     
+    @ElementCollection
     @Column(name = "picture")
     private List<String> images; //seperate table. one to many
     
     @Column(name = "time")
     private Timestamp time; 
     
-    
-    @JoinTable
-    private Set<User> likes;// many  to many
+    @OneToOne(targetEntity=User.class, fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    private Set<User> likes = new HashSet<User>();// many  to many
 
     
     
