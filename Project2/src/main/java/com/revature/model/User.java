@@ -46,7 +46,7 @@ public class User {
     private String planet;
     
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private List<Post> post;
+    private List<Post> posts;
     
     //Getters and Setters
     public String getFirstName() {
@@ -111,15 +111,15 @@ public class User {
     public void setPlanet(String planet) {
         this.planet = planet;
     }
-    public List<Post> getPost() {
-        return post;
+    public List<Post> getPosts() {
+        return posts;
     }
-    public void setPost(List<Post> post) {
-        this.post = post;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
 	public User(String email, String firstName, String lastName, String password, String profileImage, String bio,
-			String galaxy, String solarSystem, String planet, List<Post> post) {
+			String galaxy, String solarSystem, String planet, List<Post> posts) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -130,7 +130,7 @@ public class User {
 		this.galaxy = galaxy;
 		this.solarSystem = solarSystem;
 		this.planet = planet;
-		this.post = post;
+		this.posts = posts;
 	}
 
 	public User() {
@@ -140,7 +140,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bio, email, firstName, galaxy, lastName, post, password, planet, profileImage,
+		return Objects.hash(bio, email, firstName, galaxy, lastName, posts, password, planet, profileImage,
 				solarSystem);
 	}
 
@@ -155,7 +155,7 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(bio, other.bio) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(galaxy, other.galaxy)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(post, other.post)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(posts, other.posts)
 				&& Objects.equals(password, other.password) && Objects.equals(planet, other.planet)
 				&& Objects.equals(profileImage, other.profileImage) && Objects.equals(solarSystem, other.solarSystem);
 	}
@@ -164,7 +164,7 @@ public class User {
 	public String toString() {
 		return "User [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
 				+ ", profileImage=" + profileImage + ", bio=" + bio + ", galaxy=" + galaxy + ", solarSystem="
-				+ solarSystem + ", planet=" + planet + ", liked=" + post + "]";
+				+ solarSystem + ", planet=" + planet + ", liked=" + posts + "]";
 	}
       
 }

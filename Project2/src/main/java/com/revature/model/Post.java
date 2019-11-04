@@ -16,8 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,9 +29,9 @@ public class Post {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int postId;
     
-    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     @JoinColumn(name = "userPost")
-    private User user;  
+    private User user;
    
     @Column(name = "text")
     private String text;
@@ -43,8 +43,9 @@ public class Post {
     @Column(name = "time")
     private Timestamp time; 
     
-    @ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinTable(name="user_likes")
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinTable(name="user_likes", joinColumns=@JoinColumn(name="email"),
+    					   inverseJoinColumns=@JoinColumn(name="post_id"))
     private Set<User> likes = new HashSet<User>();// many to many
     
 	public int getPostId() {
