@@ -28,6 +28,10 @@ public class UserController {
 	
 	private UserService user;
 	
+	/*
+	 * There really is no need for a method like this. We may need to remove it in the future.
+	 */
+	@Deprecated
 	@GetMapping(value="/delete.application",params= {"id"})
 	public @ResponseBody String delete(String email) {
 		user.delete(email);

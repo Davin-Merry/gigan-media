@@ -16,11 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.revature.model.User;
 
 @Entity
 @Table(name="user_posts")
@@ -40,15 +38,14 @@ public class Post {
     
     @ElementCollection
     @Column(name = "picture")
-    private List<String> images; //seperate table. one to many
+    private List<String> images;
     
     @Column(name = "time")
     private Timestamp time; 
     
-    @OneToOne(targetEntity=User.class, fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    private Set<User> likes = new HashSet<User>();// many  to many
-
-    
+    @ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinTable(name="user_likes")
+    private Set<User> likes = new HashSet<User>();// many to many
     
 	public int getPostId() {
 		return postId;
