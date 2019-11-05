@@ -29,20 +29,22 @@ public class UserController {
 	private UserService user;
 	
 	/*
+	 * TODO: Remove.
 	 * There really is no need for a method like this. We may need to remove it in the future.
 	 */
+	/*
 	@Deprecated
-	@GetMapping(value="/delete.application",params= {"id"})
+	@GetMapping(value="/delete.never",params= {"id"})
 	public @ResponseBody String delete(String email) {
 		user.delete(email);
 		return "YOUR ACCOUNT HAS BEEN EXTERMINATED";
 	}
+	*/
 	
-	
-	@RequestMapping(value="/getEmail.application", method=RequestMethod.POST,
+	@RequestMapping(value="/processLogin.app", method=RequestMethod.POST,
 			produces="application/json", params= {"email"})
-	public @ResponseBody User bringBackByEmail(String email) {
-		return user.getByEmail(email);
+	public @ResponseBody User bringBackByEmail(String email, String pass) {
+		return user.getByLogin(email, pass);
 	}
 	
 	@GetMapping(value="getAll.app")
@@ -50,10 +52,15 @@ public class UserController {
 		return new ResponseEntity<List<User>>(user.getAll(), HttpStatus.OK);
 	}
 	
+	/*
+	 * TODO: Remove. May not need the method below.
+	 */
+	/*
 	@PostMapping(value="{email}/getEmailUri.app")
 	public @ResponseBody User selectById(@PathVariable("id") String email) {
 		return user.getByEmail(email);
 	}
+	*/
 	
 	@PostMapping(value="/putIn.app")
 	public @ResponseBody User insert(@RequestBody User u) {

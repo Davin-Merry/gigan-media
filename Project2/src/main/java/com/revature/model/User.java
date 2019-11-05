@@ -30,6 +30,9 @@ public class User {
     @Column(name = "user_password")
     private String password;
     
+    @Column(name = "user_salt")
+    private String salt;
+    
     @Column(name = "user_profileImage")
     private String profileImage;
     
@@ -81,7 +84,15 @@ public class User {
     
     public void setPassword(String password) {
         this.password = password;
-    }    
+    }
+    
+    public String getSalt() {
+    	return salt;
+    }
+    
+    public void setSalt(String salt) {
+    	this.salt = salt;
+    }
     
     public String getProfileImage() {
         return profileImage;
@@ -113,22 +124,15 @@ public class User {
     public void setPlanet(String planet) {
         this.planet = planet;
     }
-    /*
-    public List<Post> getPosts() {
-        return posts;
-    }
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
-    */
 
-	public User(String email, String firstName, String lastName, String password, String profileImage, String bio,
-			String galaxy, String solarSystem, String planet) {//, List<Post> posts) {
+	public User(String email, String firstName, String lastName, String password, String salt, String profileImage, String bio,
+			String galaxy, String solarSystem, String planet) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
+		this.salt = salt;
 		this.profileImage = profileImage;
 		this.bio = bio;
 		this.galaxy = galaxy;
@@ -154,6 +158,7 @@ public class User {
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((planet == null) ? 0 : planet.hashCode());
 		result = prime * result + ((profileImage == null) ? 0 : profileImage.hashCode());
+		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
 		result = prime * result + ((solarSystem == null) ? 0 : solarSystem.hashCode());
 		return result;
 	}
@@ -207,6 +212,11 @@ public class User {
 				return false;
 		} else if (!profileImage.equals(other.profileImage))
 			return false;
+		if (salt == null) {
+			if (other.salt != null)
+				return false;
+		} else if (!salt.equals(other.salt))
+			return false;
 		if (solarSystem == null) {
 			if (other.solarSystem != null)
 				return false;
@@ -218,8 +228,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ ", profileImage=" + profileImage + ", bio=" + bio + ", galaxy=" + galaxy + ", solarSystem="
-				+ solarSystem + ", planet=" + planet + "]";
+				+ ", salt=" + salt + ", profileImage=" + profileImage + ", bio=" + bio + ", galaxy=" + galaxy
+				+ ", solarSystem=" + solarSystem + ", planet=" + planet + "]";
 	}
       
 }
