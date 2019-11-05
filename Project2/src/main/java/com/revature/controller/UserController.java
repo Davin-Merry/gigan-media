@@ -41,8 +41,8 @@ public class UserController {
 	*/
 	
 	@PostMapping(value="/processLogin.app", produces="application/json")
-	public @ResponseBody User bringBackByEmail(@RequestBody String email, @RequestBody String pass) {
-		return user.getByLogin(email, pass);
+	public @ResponseBody User bringBackByEmail(@RequestBody User u) {
+		return user.getByLogin(u.getEmail(), u.getPassword());
 	}
 	
 	@GetMapping(value="getAll.app")
