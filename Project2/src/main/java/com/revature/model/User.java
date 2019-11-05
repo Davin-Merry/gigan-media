@@ -45,8 +45,10 @@ public class User {
     @Column(name = "user_planet")
     private String planet;
     
+    /*
     @OneToMany(mappedBy="blogger", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Post> posts;
+    */
     
     //Getters and Setters
     public String getFirstName() {

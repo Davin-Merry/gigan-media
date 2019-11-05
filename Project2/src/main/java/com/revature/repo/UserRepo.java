@@ -14,47 +14,42 @@ import com.revature.model.User;
 @Repository()
 public class UserRepo {
 
-			static {try {
+		static {
+			try {
 				Class.forName("org.postgresql.Driver");
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
 			}
+		}
+		
+		private SessionFactory sesFact;
+		
+		public void insert(User u) {
+			sesFact.getCurrentSession().save(u);
+		}
+		
+		public void update(User u) {
+			sesFact.getCurrentSession().update(u);
+		}
+		
+		public User selectByEmail(String email) {
+			User u = sesFact.getCurrentSession().get(User.class, email);
+			return u;
+		}
+		
+		public List<User> selectAll(){
+		List <User> list = sesFact.getCurrentSession().createQuery("from User", User.class).list();
+		return list; 
+		}
+		
+		public void delete(String u) {
+			// TODO Auto-generated method stub
 			
-			private SessionFactory sesFact;
-			
-			public void insert(User u) {
-				sesFact.getCurrentSession().save(u);
-			}
-			
-			public void update(User u) {
-				sesFact.getCurrentSession().update(u);
-			}
-			
-			public User selectByEmail(String email) {
-				User u = sesFact.getCurrentSession().get(User.class, email);
-				return u;
-			}
-			
-			public List<User> selectAll(){
-			List <User> list = sesFact.getCurrentSession().createQuery("from User", User.class).list();
-			return list; 
-			}
-			
-			public void delete(String u) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Autowired
-			public UserRepo(SessionFactory sesFact) {
-				this.sesFact = sesFact;
-			}
-
-			
-	
-	
-	
-
+		}
+		
+		@Autowired
+		public UserRepo(SessionFactory sesFact) {
+			this.sesFact = sesFact;
+		}
 }

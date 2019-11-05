@@ -36,7 +36,7 @@ private UserRepo ur;
 	}
 	
 	public void insert(User u) {
-		ur.update(u);
+		ur.insert(u);
 		
 	}
 	

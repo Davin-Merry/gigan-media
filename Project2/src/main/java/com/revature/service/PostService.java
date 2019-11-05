@@ -26,7 +26,7 @@ public class PostService {
 	}
 	
 	public void insert(Post p) {
-		rp.update(p);
+		rp.insert(p);
 	}
 	
 	//Example had a getRp method. Don't think we need it

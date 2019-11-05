@@ -31,7 +31,7 @@ public class Post {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int postId;
     
-    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name = "post_user")
     private User blogger;
    
