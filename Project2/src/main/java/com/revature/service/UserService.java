@@ -12,7 +12,7 @@ import com.revature.util.SecurityUtil;
 @Service
 public class UserService {
 	
-private UserRepo ur; 
+	private UserRepo ur;
 	
 	public List<User> getAll() {
 		return ur.selectAll();
@@ -36,7 +36,22 @@ private UserRepo ur;
 		return u;
 	}
 	
+	public User getByEmail(String email) {
+		User u = ur.selectByEmail(email);
+		u.setPassword("");
+		u.setSalt("");
+		return u;
+	}
+	
 	public void update(User u) {
+		/*
+		if (u.getPassword() != null) {
+			SecurityUtil su = new SecurityUtil();
+			u.setSalt(su.generateSalt());
+			u.setPassword(su.hashSha256(u.getPassword(), u.getSalt()));
+			ur.update(u);
+		}
+		*/
 		ur.update(u);
 	}
 	

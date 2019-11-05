@@ -39,6 +39,10 @@ public class UserController {
 		return "YOUR ACCOUNT HAS BEEN EXTERMINATED";
 	}
 	*/
+	@GetMapping(value="/userInfo.app", params = {"email"})
+	public @ResponseBody User getUserInfo(String email) {
+		return user.getByEmail(email);
+	}
 	
 	@PostMapping(value="/processLogin.app", produces="application/json")
 	public @ResponseBody User bringBackByEmail(@RequestBody User u) {
@@ -50,15 +54,11 @@ public class UserController {
 		return new ResponseEntity<List<User>>(user.getAll(), HttpStatus.OK);
 	}
 	
-	/*
-	 * TODO: Remove. May not need the method below.
-	 */
-	/*
-	@PostMapping(value="{email}/getEmailUri.app")
-	public @ResponseBody User selectById(@PathVariable("id") String email) {
-		return user.getByEmail(email);
+	@PostMapping(value="updateInfo.app")
+	public @ResponseBody String updateUser(@RequestBody User u) {
+		user.update(u);
+		return "{\"update\": true}";
 	}
-	*/
 	
 	@PostMapping(value="/putIn.app")
 	public @ResponseBody User insert(@RequestBody User u) {

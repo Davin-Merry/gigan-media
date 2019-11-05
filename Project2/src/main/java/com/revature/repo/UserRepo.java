@@ -30,7 +30,15 @@ public class UserRepo {
 		}
 		
 		public void update(User u) {
-			sesFact.getCurrentSession().update(u);
+			User user = sesFact.getCurrentSession().get(User.class, u.getEmail());
+			System.out.println("Old: " + u);
+			user.setFirstName(u.getFirstName());
+			user.setLastName(u.getLastName());
+			user.setGalaxy(u.getGalaxy());
+			user.setPlanet(u.getPlanet());
+			
+			System.out.println("New: " + user);
+			sesFact.getCurrentSession().update(user);
 		}
 		
 		public User selectByEmail(String email) {
