@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.model.Post;
 import com.revature.service.PostService;
 
-@RestController
 @Controller
 @RequestMapping(value="/post")
 @CrossOrigin(origins="*")

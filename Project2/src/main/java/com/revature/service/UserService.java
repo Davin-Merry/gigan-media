@@ -26,10 +26,14 @@ private UserRepo ur;
 			if (!su.hashSha256(pass, u.getSalt()).equals(u.getPassword())) {
 				//If the password given doesn't match the user's, don't pass the user down.
 				u = null;
+			} else {
+				//Wipe out password and salt before handing the object over.
+				u.setPassword("");
+				u.setSalt("");
 			}
 		}
 		
-		return u; 		
+		return u;
 	}
 	
 	public void update(User u) {
@@ -45,7 +49,6 @@ private UserRepo ur;
 		u.setSalt(su.generateSalt());
 		u.setPassword(su.hashSha256(u.getPassword(), u.getSalt()));
 		ur.insert(u);
-		
 	}
 	
 	@Autowired

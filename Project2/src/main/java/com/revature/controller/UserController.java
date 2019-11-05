@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.model.User;
 import com.revature.service.UserService;
 
-@RestController
 @Controller
 @RequestMapping(value="/user")
 @CrossOrigin(origins="*")
@@ -41,9 +40,8 @@ public class UserController {
 	}
 	*/
 	
-	@RequestMapping(value="/processLogin.app", method=RequestMethod.POST,
-			produces="application/json", params= {"email"})
-	public @ResponseBody User bringBackByEmail(String email, String pass) {
+	@PostMapping(value="/processLogin.app", produces="application/json")
+	public @ResponseBody User bringBackByEmail(@RequestBody String email, @RequestBody String pass) {
 		return user.getByLogin(email, pass);
 	}
 	
