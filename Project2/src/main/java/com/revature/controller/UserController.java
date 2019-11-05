@@ -45,17 +45,17 @@ public class UserController {
 		return user.getByEmail(email);
 	}
 	
-	@GetMapping(value="getAll.application")
+	@GetMapping(value="getAll.app")
 	public ResponseEntity<List<User>> getAll(){
 		return new ResponseEntity<List<User>>(user.getAll(), HttpStatus.OK);
 	}
 	
-	@PostMapping(value="{email}/getEmailUri.application")
+	@PostMapping(value="{email}/getEmailUri.app")
 	public @ResponseBody User selectById(@PathVariable("id") String email) {
 		return user.getByEmail(email);
 	}
 	
-	@PostMapping(value="/putIn.application")
+	@PostMapping(value="/putIn.app")
 	public @ResponseBody User insert(@RequestBody User u) {
 		System.out.println(u);
 		user.insert(u);
@@ -72,9 +72,4 @@ public class UserController {
 	public void setUser(UserService user) {
 		this.user = user;
 	}
-
-	public UserController() {
-		System.out.println("controller");
-	}
-
 }

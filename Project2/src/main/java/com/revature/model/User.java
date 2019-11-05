@@ -15,37 +15,37 @@ import javax.persistence.Table;
 import com.revature.model.Post; 
 
 @Entity
-@Table(name="user")
+@Table(name="app_user")
 public class User {
     @Id
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "user_email")
     private String email;
     
-    @Column(name = "firstName")
+    @Column(name = "user_firstName")
     private String firstName;
     
-    @Column(name = "lastName")
+    @Column(name = "user_lastName")
     private String lastName;
     
-    @Column(name = "password")
+    @Column(name = "user_password")
     private String password;
     
-    @Column(name = "profilePic")
+    @Column(name = "user_profileImage")
     private String profileImage;
     
-    @Column(name = "bio")
+    @Column(name = "user_bio")
     private String bio;
     
-    @Column(name = "galaxy")
+    @Column(name = "user_galaxy")
     private String galaxy;
     
-    @Column(name = "solarSystem")
+    @Column(name = "user_solarSystem")
     private String solarSystem;
     
-    @Column(name = "planet")
+    @Column(name = "user_planet")
     private String planet;
     
-    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="blogger", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Post> posts;
     
     //Getters and Setters
@@ -111,15 +111,17 @@ public class User {
     public void setPlanet(String planet) {
         this.planet = planet;
     }
+    /*
     public List<Post> getPosts() {
         return posts;
     }
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+    */
 
 	public User(String email, String firstName, String lastName, String password, String profileImage, String bio,
-			String galaxy, String solarSystem, String planet, List<Post> posts) {
+			String galaxy, String solarSystem, String planet) {//, List<Post> posts) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -130,7 +132,7 @@ public class User {
 		this.galaxy = galaxy;
 		this.solarSystem = solarSystem;
 		this.planet = planet;
-		this.posts = posts;
+		//this.posts = posts;
 	}
 
 	public User() {
@@ -140,8 +142,18 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bio, email, firstName, galaxy, lastName, posts, password, planet, profileImage,
-				solarSystem);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bio == null) ? 0 : bio.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((galaxy == null) ? 0 : galaxy.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((planet == null) ? 0 : planet.hashCode());
+		result = prime * result + ((profileImage == null) ? 0 : profileImage.hashCode());
+		result = prime * result + ((solarSystem == null) ? 0 : solarSystem.hashCode());
+		return result;
 	}
 
 	@Override
@@ -153,18 +165,59 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(bio, other.bio) && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(galaxy, other.galaxy)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(posts, other.posts)
-				&& Objects.equals(password, other.password) && Objects.equals(planet, other.planet)
-				&& Objects.equals(profileImage, other.profileImage) && Objects.equals(solarSystem, other.solarSystem);
+		if (bio == null) {
+			if (other.bio != null)
+				return false;
+		} else if (!bio.equals(other.bio))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (galaxy == null) {
+			if (other.galaxy != null)
+				return false;
+		} else if (!galaxy.equals(other.galaxy))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (planet == null) {
+			if (other.planet != null)
+				return false;
+		} else if (!planet.equals(other.planet))
+			return false;
+		if (profileImage == null) {
+			if (other.profileImage != null)
+				return false;
+		} else if (!profileImage.equals(other.profileImage))
+			return false;
+		if (solarSystem == null) {
+			if (other.solarSystem != null)
+				return false;
+		} else if (!solarSystem.equals(other.solarSystem))
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
 				+ ", profileImage=" + profileImage + ", bio=" + bio + ", galaxy=" + galaxy + ", solarSystem="
-				+ solarSystem + ", planet=" + planet + ", liked=" + posts + "]";
+				+ solarSystem + ", planet=" + planet + "]";
 	}
       
 }

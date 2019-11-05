@@ -26,17 +26,17 @@ public class PostController {
 	
 	private PostService post;
 	
-	@GetMapping(value="getAll.application")
+	@GetMapping(value="getAll.app")
 	public ResponseEntity<List<Post>> getAll(){
 		return new ResponseEntity<List<Post>>(post.getAll(), HttpStatus.OK);
 	}
 	
-	@PostMapping(value="{email}/getEmailUri.application")
+	@PostMapping(value="{email}/getEmailUri.app")
 	public @ResponseBody Post selectById(@PathVariable("id") String email) {
 		return post.getByEmail(email);
 	}
 	
-	@PostMapping(value="/putIn.application")
+	@PostMapping(value="/putIn.app")
 	public @ResponseBody Post insert(@RequestBody Post p) {
 		System.out.println(p);
 		post.insert(p);
@@ -53,11 +53,4 @@ public class PostController {
 	public void setPost(PostService post) {
 		this.post = post;
 	}
-
-	public PostController() {
-		System.out.println("controller");
-	}
-	
-	
-
 }

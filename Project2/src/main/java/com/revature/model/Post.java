@@ -20,27 +20,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.revature.model.User;
+
 @Entity
-@Table(name="user_posts")
+@Table(name="app_post")
 public class Post {
     
     @Id
-    @Column(name = "postId")
+    @Column(name = "post_postId")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int postId;
     
     @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @JoinColumn(name = "userPost")
-    private User user;
+    @JoinColumn(name = "post_user")
+    private User blogger;
    
-    @Column(name = "text")
+    @Column(name = "post_text")
     private String text;
     
     @ElementCollection
-    @Column(name = "picture")
+    @Column(name = "post_images")
     private List<String> images;
     
-    @Column(name = "time")
+    @Column(name = "post_time")
     private Timestamp time; 
     
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -56,12 +58,12 @@ public class Post {
 		this.postId = postId;
 	}
 
-	public User getUser() {
-		return user;
+	public User getBlogger() {
+		return blogger;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setBlogger(User blogger) {
+		this.blogger = blogger;
 	}
 
 	public String getText() {
@@ -98,7 +100,15 @@ public class Post {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(user, images, likes, postId, text, time);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((blogger == null) ? 0 : blogger.hashCode());
+		result = prime * result + ((images == null) ? 0 : images.hashCode());
+		result = prime * result + ((likes == null) ? 0 : likes.hashCode());
+		result = prime * result + postId;
+		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		result = prime * result + ((time == null) ? 0 : time.hashCode());
+		return result;
 	}
 
 	@Override
@@ -110,19 +120,44 @@ public class Post {
 		if (getClass() != obj.getClass())
 			return false;
 		Post other = (Post) obj;
-		return Objects.equals(user, other.user) && Objects.equals(images, other.images)
-				&& Objects.equals(likes, other.likes) && postId == other.postId && Objects.equals(text, other.text)
-				&& Objects.equals(time, other.time);
+		if (blogger == null) {
+			if (other.blogger != null)
+				return false;
+		} else if (!blogger.equals(other.blogger))
+			return false;
+		if (images == null) {
+			if (other.images != null)
+				return false;
+		} else if (!images.equals(other.images))
+			return false;
+		if (likes == null) {
+			if (other.likes != null)
+				return false;
+		} else if (!likes.equals(other.likes))
+			return false;
+		if (postId != other.postId)
+			return false;
+		if (text == null) {
+			if (other.text != null)
+				return false;
+		} else if (!text.equals(other.text))
+			return false;
+		if (time == null) {
+			if (other.time != null)
+				return false;
+		} else if (!time.equals(other.time))
+			return false;
+		return true;
 	}
 
 	public Post() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(int postId, User user, String text, List<String> images, Timestamp time, Set<User> likes) {
+	public Post(int postId, User blogger, String text, List<String> images, Timestamp time, Set<User> likes) {
 		super();
 		this.postId = postId;
-		this.user = user;
+		this.blogger = blogger;
 		this.text = text;
 		this.images = images;
 		this.time = time;
@@ -131,8 +166,8 @@ public class Post {
 
 	@Override
 	public String toString() {
-		return "Post [postId=" + postId + ", User=" + user + ", text=" + text + ", images=" + images
-				+ ", time=" + time + ", likes=" + likes + "]";
+		return "Post [postId=" + postId + ", blogger=" + blogger + ", text=" + text + ", images=" + images + ", time="
+				+ time + ", likes=" + likes + "]";
 	}
     
    
