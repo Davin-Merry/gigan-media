@@ -22,6 +22,18 @@ import javax.persistence.Table;
 
 import com.revature.model.User;
 
+/**
+ * This is a model that identifies the user's posts and holds its attributes.
+ * 
+ * @entity annotation creates the table to store a user post.
+ * 
+ * @table this table is referenced as app_post
+ * 
+ * @author gigan J J
+ *
+ *
+ */
+
 @Entity
 @Table(name="app_post")
 public class Post {
@@ -45,6 +57,10 @@ public class Post {
     @Column(name = "post_time")
     private Timestamp time; 
     
+    /**
+     *The inverse join column stores the list of user likes.Hashset is used to 
+     *restrict users from recording more than one likes for each post.
+     */
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinTable(name="user_likes", joinColumns=@JoinColumn(name="email"),
     					   inverseJoinColumns=@JoinColumn(name="post_id"))

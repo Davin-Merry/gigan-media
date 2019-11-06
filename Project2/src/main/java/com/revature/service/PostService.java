@@ -13,6 +13,8 @@ public class PostService {
 
 	private PostRepo rp; 
 	
+	
+	
 	public List<Post> getAll(){
 		return rp.selectAll(); 
 	}

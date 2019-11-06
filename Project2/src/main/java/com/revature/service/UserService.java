@@ -18,6 +18,14 @@ public class UserService {
 		return ur.selectAll();
 	}
 	
+	/**
+	 * This method validates the user using the email and password.
+	 * 
+	 * @param email
+	 * @param pass is the password
+	 * @return user
+	 */
+	
 	public User getByLogin(String email, String pass) {
 		User u = ur.selectByEmail(email);
 		
@@ -35,6 +43,13 @@ public class UserService {
 		
 		return u;
 	}
+	
+	/**
+	 * 
+	 * @param email
+	 * @return
+	 */
+	
 	
 	public User getByEmail(String email) {
 		User u = ur.selectByEmail(email);
@@ -58,6 +73,12 @@ public class UserService {
 	public void delete(String u) {
 		ur.delete(u);
 	}
+	
+	/**
+	 * After encryption, it inserts the password into the database
+	 * 
+	 * @param u is the user to be inserted.
+	 */
 	
 	public void insert(User u) {
 		SecurityUtil su = new SecurityUtil();
