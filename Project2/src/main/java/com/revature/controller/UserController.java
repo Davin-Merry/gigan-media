@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.model.User;
+import com.revature.service.ImageService;
 import com.revature.service.UserService;
 
 @Controller
@@ -25,6 +26,7 @@ import com.revature.service.UserService;
 public class UserController {
 	
 	private UserService user;
+	private ImageService image;
 	
 	@GetMapping(value="/userInfo.app", params = {"email"})
 	public @ResponseBody User getUserInfo(String email) {
@@ -47,10 +49,11 @@ public class UserController {
 		return "{\"update\": true}";
 	}
 	
-	@PostMapping(value="updateProfilePic.app")
+	@PostMapping(value="updateProfilePic.app", consumes= {"image/*"})
 	public @ResponseBody String updateProfilePic(@RequestParam String id, @RequestBody byte[] f) {
 		InputStream file = new ByteArrayInputStream(f);
-		System.out.println(f.length);
+		//image.uploadProfile(file, (long)f.length);
+		System.out.println(f.toString());
 		System.out.println(id.toLowerCase());
 		return "{\"update\": true}";
 	}
@@ -68,5 +71,14 @@ public class UserController {
 	@Autowired
 	public void setUser(UserService user) {
 		this.user = user;
+	}
+	
+	public ImageService getImage() {
+		return image;
+	}
+	
+	@Autowired
+	public void setImage(ImageService image) {
+		this.image = image;
 	}
 }

@@ -36,6 +36,7 @@ public class UserRepo {
 			user.setLastName(u.getLastName());
 			user.setGalaxy(u.getGalaxy());
 			user.setPlanet(u.getPlanet());
+			user.setBio(u.getBio());
 			
 			System.out.println("New: " + user);
 			sesFact.getCurrentSession().update(user);
