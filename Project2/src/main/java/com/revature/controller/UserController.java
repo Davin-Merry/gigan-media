@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.model.User;
 import com.revature.service.UserService;
-import com.revature.wrapper.FileInfoContext;
 
 @Controller
 @RequestMapping(value="/user")
