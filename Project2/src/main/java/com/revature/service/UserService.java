@@ -82,6 +82,7 @@ public class UserService {
 	
 	public void insert(User u) {
 		SecurityUtil su = new SecurityUtil();
+		u.setEmail(u.getEmail().toLowerCase());
 		u.setSalt(su.generateSalt());
 		u.setPassword(su.hashSha256(u.getPassword(), u.getSalt()));
 		ur.insert(u);
