@@ -12,6 +12,47 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
 	
+	<dependencyManagement>
+		<dependencies>
+		
+		
+		<!-- log4j -->
+<dependency>
+ <groupId>ch.qos.logback</groupId>
+ <artifactId>logback-classic</artifactId>
+ <version>1.2.3</version>
+ <scope>compile</scope>
+</dependency>
+<dependency>
+ <groupId>org.apache.logging.log4j</groupId>
+ <artifactId>log4j-to-slf4j</artifactId>
+ <version>2.9.1</version>
+ <scope>compile</scope>
+</dependency>
+<dependency>
+ <groupId>org.slf4j</groupId>
+ <artifactId>jul-to-slf4j</artifactId>
+ <version>1.7.25</version>
+ <scope>compile</scope>
+</dependency>
+<dependency>
+ <groupId>org.slf4j</groupId>
+ <artifactId>log4j-over-slf4j</artifactId>
+ <version>1.7.25</version>
+ <scope>compile</scope>
+</dependency>
+		
+		
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>2.10.9</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 		    <groupId>org.springframework</groupId>
@@ -83,10 +124,20 @@
 		</dependency>
 		
 		<dependency>
-		    <groupId>com.amazonaws</groupId>
-		    <artifactId>aws-java-sdk</artifactId>
-		    <version>1.11.667</version>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
 		</dependency>
+		
+		  <dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-api</artifactId>
+    <version>2.12.1</version>
+  </dependency>
+  <dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>2.12.1</version>
+  </dependency>
 		
 	</dependencies>
 </project>
