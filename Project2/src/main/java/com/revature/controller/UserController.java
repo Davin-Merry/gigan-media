@@ -50,12 +50,11 @@ public class UserController {
 	}
 	
 	@PostMapping(value="updateProfilePic.app", consumes= {"image/*"})
-	public @ResponseBody String updateProfilePic(@RequestParam String id, @RequestBody byte[] f) {
+	public @ResponseBody String updateProfilePic(@RequestParam String id, @RequestParam String type, @RequestBody byte[] f) {
 		InputStream file = new ByteArrayInputStream(f);
-		//image.uploadProfile(file, (long)f.length);
-		System.out.println(f.toString());
-		System.out.println(id.toLowerCase());
-		return "{\"update\": true}";
+		String url = image.uploadProfile(file, id, type, (long)f.length);
+		user.updateProfileByEmail(id, url);
+		return "{\"newURL\": \"" + url + "\"}";
 	}
 	
 	@PostMapping(value="/putIn.app")

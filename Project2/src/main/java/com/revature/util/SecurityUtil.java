@@ -21,7 +21,7 @@ public class SecurityUtil {
 	 * @param hash Byte array hash to convert
 	 * @return The base-16 representation of hashed value (String)
 	 */
-	private static String shaHexRepresentation(byte[] hash) {
+	private static String hexRepresentation(byte[] hash) {
 		//Convert byte array to signum representation
 		BigInteger n = new BigInteger(1, hash);
 		//Convert BigInteger to Base 16 string
@@ -33,6 +33,25 @@ public class SecurityUtil {
 		}
 		
 		return hexStr.toString();
+	}
+	
+	/**
+	 * A function that will take in a single <code>String</code> Object and return a
+	 * hashed MD5 string as a result.<br><br>
+	 * The string (<code>str</code>) would be the plaintext.<br>
+	 * If a <code>NoSuchAlgorithmException</code> occurs, returns <code>null</code>.
+	 * 
+	 * @param str The string to be hashed
+	 * @return The hashed hex string
+	 */
+	public String hashMd5(String str) {
+		try {
+			md = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			return null;
+		}
+		
+		return hexRepresentation(md.digest(str.getBytes()));
 	}
 	
 	/**
@@ -75,6 +94,6 @@ public class SecurityUtil {
 		//Concatenate the plaintext with the salt
 		str = str + salt;
 		
-		return shaHexRepresentation(md.digest(str.getBytes()));
+		return hexRepresentation(md.digest(str.getBytes()));
 	}
 }

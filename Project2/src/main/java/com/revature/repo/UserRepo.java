@@ -29,14 +29,21 @@ public class UserRepo {
 			sesFact.getCurrentSession().save(u);
 		}
 		
+		/**
+		 * The goto update function for our users. If either personal info,
+		 * password, or profile picture gets updated, we pass it here.
+		 * 
+		 * @param u The user object to update
+		 */
 		public void update(User u) {
 			User user = sesFact.getCurrentSession().get(User.class, u.getEmail());
 			System.out.println("Old: " + u);
 			user.setFirstName(u.getFirstName());
 			user.setLastName(u.getLastName());
+			user.setProfileImage(u.getProfileImage());
+			user.setBio(u.getBio());
 			user.setGalaxy(u.getGalaxy());
 			user.setPlanet(u.getPlanet());
-			user.setBio(u.getBio());
 			
 			System.out.println("New: " + user);
 			sesFact.getCurrentSession().update(user);

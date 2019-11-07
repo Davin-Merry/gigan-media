@@ -59,14 +59,12 @@ public class UserService {
 	}
 	
 	public void update(User u) {
-		/*
-		if (u.getPassword() != null) {
-			SecurityUtil su = new SecurityUtil();
-			u.setSalt(su.generateSalt());
-			u.setPassword(su.hashSha256(u.getPassword(), u.getSalt()));
-			ur.update(u);
-		}
-		*/
+		ur.update(u);
+	}
+	
+	public void updateProfileByEmail(String email, String newUrl) {
+		User u = ur.selectByEmail(email);
+		u.setProfileImage(newUrl);
 		ur.update(u);
 	}
 	
