@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.revature.model.Post;
 import com.revature.repo.PostRepo;
+import com.revature.repo.UserRepo;
 
 @Service
 public class PostService {
 
 	private PostRepo rp; 
-	
+	private UserRepo ur;
 	
 	
 	public List<Post> getAll(){
@@ -28,6 +29,8 @@ public class PostService {
 	}
 	
 	public void insert(Post p) {
+		System.out.println(p);
+		p.setBlogger(ur.selectByEmail(p.getBlogger().getEmail()));
 		rp.insert(p);
 	}
 	
@@ -41,5 +44,10 @@ public class PostService {
 	public Post getByEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Autowired
+	public void setUr(UserRepo ur) {
+		this.ur = ur;
 	}
 }

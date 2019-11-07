@@ -54,7 +54,7 @@ public class ImageService {
 		ObjectMetadata md = new ObjectMetadata();
 		md.setContentLength(size);
 		
-		//Put our InputStream for upload request using our bucket, directory, 
+		//Put our InputStream for upload request using our bucket, directory, file name (w/ file type), InputStream, and metadata.
 		PutObjectRequest uploadReq = new PutObjectRequest(bucketName, subDirectory + fName + "." + fileType, f, md);
 		uploadReq.setCannedAcl(CannedAccessControlList.PublicRead);
 		
