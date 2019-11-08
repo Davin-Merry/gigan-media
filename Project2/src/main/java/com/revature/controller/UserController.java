@@ -64,6 +64,12 @@ public class UserController {
 		return "{\"update\": true}";
 	}
 	
+	@PostMapping(value="updatePassword.app")
+	public @ResponseBody String updatePassword(@RequestBody User u) {
+		user.updatePassword(u);
+		return "{\"update\": true}";
+	}
+	
 	@PostMapping(value="updateProfilePic.app", consumes= {"image/*"})
 	public @ResponseBody String updateProfilePic(@RequestParam String id, @RequestParam String type, @RequestBody byte[] f) {
 		InputStream file = new ByteArrayInputStream(f);

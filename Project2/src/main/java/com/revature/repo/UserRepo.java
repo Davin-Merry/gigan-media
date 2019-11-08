@@ -37,16 +37,23 @@ public class UserRepo {
 		 */
 		public void update(User u) {
 			User user = sesFact.getCurrentSession().get(User.class, u.getEmail());
-			System.out.println("Old: " + u);
+			System.out.println("Before: " + user);
 			user.setFirstName(u.getFirstName());
 			user.setLastName(u.getLastName());
+			user.setPassword(u.getPassword());
+			user.setSalt(u.getSalt());
 			user.setProfileImage(u.getProfileImage());
 			user.setBio(u.getBio());
 			user.setGalaxy(u.getGalaxy());
 			user.setPlanet(u.getPlanet());
 			
-			System.out.println("New: " + user);
+			System.out.println("After: " + user);
 			sesFact.getCurrentSession().update(user);
+		}
+		
+		public User selectByFirstName(String firstName) {
+			User u = sesFact.getCurrentSession().get(User.class, firstName);
+			return u;
 		}
 		
 		public User selectByEmail(String email) {

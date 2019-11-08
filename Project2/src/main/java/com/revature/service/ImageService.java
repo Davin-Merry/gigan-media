@@ -25,8 +25,8 @@ public class ImageService {
 	/*
 	 * Important information is below:
 	 */
-	private String accessKey = "AKIA3YVHFNGDBJ55TJU7";
-	private String secretAccessKey = "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";
+	private String accessKey = System.getenv("AWS_ACCESS_KEY");
+	private String secretAccessKey = System.getenv("AWS_SECRET_KEY");
 	private String region = "us-east-2";
 	private String bucketName = "gigan-media-bucket";
 	private String subDirectory = "profile_images/";
@@ -66,5 +66,21 @@ public class ImageService {
 		//We will then return our newly constructed URL to pass down to the controller that called this service.
 		String constructedURL = "https://" + bucketName + ".s3.us-east-2.amazonaws.com/" + subDirectory + fName + "." + fileType;
 		return constructedURL;
+	}
+	
+	/**
+	 * Calls the <code>uploadProfile</code> function. The only difference is
+	 * the change in the variable <code>subDirectory</code>.
+	 * 
+	 * @param f The <code>InputStream</code> to use as file data.
+	 * @param fName The filename to give it.
+	 * @param fileType The extension name of the file.
+	 * @param size Explicit size of the file being uploaded.
+	 * @return The URL linked to the file that was just uploaded.
+	 */
+	public String uploadImage(InputStream f, String fName, String fileType, long size) {
+		subDirectory = "post_images/";
+		//Giving the file a weird name, so as to give a unique name.
+		return uploadProfile(f, fName + size, fileType, size);
 	}
 }

@@ -25,6 +25,7 @@ public class PostService {
 	}
 	
 	public void update(Post p) {
+		p.setLikes(p.getLikes() + 1);
 		rp.update(p); 
 	}
 	
@@ -34,16 +35,15 @@ public class PostService {
 		rp.insert(p);
 	}
 	
+//	public List<Post> getByEmail(String email) {
+//		return rp.selectAllByEmail(email);
+//	}
+	
 	//Example had a getRp method. Don't think we need it
 	
 	@Autowired
 	public void setRp(PostRepo rp) {
 		this.rp = rp;
-	}
-
-	public Post getByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Autowired

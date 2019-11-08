@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -36,6 +37,15 @@ public class PostRepo {
 		Post p = sesFact.getCurrentSession().get(Post.class, id);
 		return p;
 	}
+	
+//	public List<Post> selectAllByEmail(String email) {
+//		/*
+//		Query<Post> q = sesFact.getCurrentSession().createQuery("FROM Post WHERE Post.blogger.email=?1", Post.class);
+//		q.setParameter(1, email);
+//		List<Post> list = q.list();
+//		*/
+//		return null;
+//	}
 	
 	public List<Post> selectAll(){
 	List <Post> list = sesFact.getCurrentSession().createQuery("from Post", Post.class).list();
