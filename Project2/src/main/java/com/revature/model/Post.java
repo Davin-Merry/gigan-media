@@ -50,9 +50,9 @@ public class Post {
     @Column(name = "post_text")
     private String text;
     
-    @ElementCollection
+    //@ElementCollection
     @Column(name = "post_images")
-    private List<String> images;
+    private String images;
     
     @Column(name = "post_time")
     private Timestamp time; 
@@ -61,10 +61,16 @@ public class Post {
      *The inverse join column stores the list of user likes.Hashset is used to 
      *restrict users from recording more than one likes for each post.
      */
+    /* Unfortunately, this variable is defunct, due to the lack of knowledge on how to implement this properly.
+     * - Davin M.
     @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinTable(name="user_likes", joinColumns=@JoinColumn(name="email"),
-    					   inverseJoinColumns=@JoinColumn(name="post_id"))
+    @JoinTable(name="user_likes", joinColumns=@JoinColumn(name="parent_id"),
+    					   inverseJoinColumns=@JoinColumn(name="child_id"))
     private Set<User> likes = new HashSet<User>();// many to many
+    */
+    
+    @Column(name = "user_likes")
+    private int likes;
     
 	public int getPostId() {
 		return postId;
@@ -90,11 +96,11 @@ public class Post {
 		this.text = text;
 	}
 
-	public List<String> getImages() {
+	public String getImages() {
 		return images;
 	}
 
-	public void setImages(List<String> images) {
+	public void setImages(String images) {
 		this.images = images;
 	}
 
@@ -106,11 +112,11 @@ public class Post {
 		this.time = time;
 	}
 
-	public Set<User> getLikes() {
+	public int getLikes() {
 		return likes;
 	}
 
-	public void setLikes(Set<User> likes) {
+	public void setLikes(int likes) {
 		this.likes = likes;
 	}
 
@@ -120,7 +126,7 @@ public class Post {
 		int result = 1;
 		result = prime * result + ((blogger == null) ? 0 : blogger.hashCode());
 		result = prime * result + ((images == null) ? 0 : images.hashCode());
-		result = prime * result + ((likes == null) ? 0 : likes.hashCode());
+		result = prime * result + likes;
 		result = prime * result + postId;
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		result = prime * result + ((time == null) ? 0 : time.hashCode());
@@ -146,10 +152,7 @@ public class Post {
 				return false;
 		} else if (!images.equals(other.images))
 			return false;
-		if (likes == null) {
-			if (other.likes != null)
-				return false;
-		} else if (!likes.equals(other.likes))
+		if (likes != other.likes)
 			return false;
 		if (postId != other.postId)
 			return false;
@@ -170,7 +173,7 @@ public class Post {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(int postId, User blogger, String text, List<String> images, Timestamp time, Set<User> likes) {
+	public Post(int postId, User blogger, String text, String images, Timestamp time, int likes) {
 		super();
 		this.postId = postId;
 		this.blogger = blogger;

@@ -62,6 +62,15 @@ public class UserService {
 		ur.update(u);
 	}
 	
+	public void updatePassword(User u) {
+		SecurityUtil su = new SecurityUtil();
+		String newPass = u.getPassword();
+		u = ur.selectByEmail(u.getEmail());
+		u.setSalt(su.generateSalt());
+		u.setPassword(su.hashSha256(newPass, u.getSalt()));
+		ur.update(u);
+	}
+	
 	public void updateProfileByEmail(String email, String newUrl) {
 		User u = ur.selectByEmail(email);
 		u.setProfileImage(newUrl);

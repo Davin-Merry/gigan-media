@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,27 +26,47 @@ import com.revature.service.UserService;
 @CrossOrigin(origins="*")
 public class UserController {
 	
+	private Logger logger = Logger.getLogger(UserController.class);
 	private UserService user;
 	private ImageService image;
 	
+   
+	
 	@GetMapping(value="/userInfo.app", params = {"email"})
 	public @ResponseBody User getUserInfo(String email) {
+		
+		logger.info("This is an info log entry");
+	    logger.error("This is an error log entry");
 		return user.getByEmail(email.toLowerCase());
+		  
 	}
 	
 	@PostMapping(value="/processLogin.app", produces="application/json")
 	public @ResponseBody User bringBackByEmail(@RequestBody User u) {
+		logger.info("This is an info log entry 2");
+	    logger.error("This is an error log entry 2");
 		return user.getByLogin(u.getEmail().toLowerCase(), u.getPassword());
 	}
 	
 	@GetMapping(value="getAll.app")
 	public ResponseEntity<List<User>> getAll(){
+		logger.info("This is an info log entry 3");
+	    logger.error("This is an error log entry 3");
 		return new ResponseEntity<List<User>>(user.getAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping(value="updateInfo.app")
 	public @ResponseBody String updateUser(@RequestBody User u) {
 		user.update(u);
+		
+		logger.info("This is an info log entry 4");
+	    logger.error("This is an error log entry 4");
+		return "{\"update\": true}";
+	}
+	
+	@PostMapping(value="updatePassword.app")
+	public @ResponseBody String updatePassword(@RequestBody User u) {
+		user.updatePassword(u);
 		return "{\"update\": true}";
 	}
 	
@@ -54,12 +75,16 @@ public class UserController {
 		InputStream file = new ByteArrayInputStream(f);
 		String url = image.uploadProfile(file, id, type, (long)f.length);
 		user.updateProfileByEmail(id, url);
+		logger.info("This is an info log entry 5");
+	    logger.error("This is an error log entry 5");
 		return "{\"newURL\": \"" + url + "\"}";
 	}
 	
 	@PostMapping(value="/putIn.app")
 	public @ResponseBody User insert(@RequestBody User u) {
 		user.insert(u);
+		logger.info("This is an info log entry 6");
+	    logger.error("This is an error log entry 6");
 		return u;
 	}
 	
